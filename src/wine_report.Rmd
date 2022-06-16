@@ -41,25 +41,24 @@ The Variables are :
 ```{r}
 #Import libraries 
 
+install.packages('memisc')
+install.packages('ggplot2')
+install.packages('gridExtra')
+install.packages("RColorBrewer")
+install.packages("psych")
+
+
 library(gridExtra)
 library(grid)
 library(dplyr)
-library(reshape2)
 library(GGally)
 library(scales)
 library(ggpubr)
 library(tidyverse)
 library(readxl)
-
-install.packages("janitor")
-install.packages("FactoMineR")
-install.packages("factoextra")
-
 library(factoextra)
 library(ggplot2)
-library(MASS)
 library(corrplot)
-library(FactoMineR)
 library(factoextra)
 library(tidyr)
 library(nnet)
@@ -262,7 +261,7 @@ rating_h
 
 ```
 To understand the data more, and have a look at the type of distribution and outliers, graphs are visualized to demonstrate statistical information.
-```{r}
+```{r, error=TRUE}
 
 
 # Distribution of fixed.acidity variable.
@@ -402,177 +401,5 @@ Now we compare alchool with the rest of variables based on the ratings to see wh
 
 #####fixed.acidity:
 
-```{r}
-ggplot(data = red_wine,
-       aes(y = fixed.acidity, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(4,16)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
 
-```
- for fixed acidity the graph shows that a good wine is between 7 to 11. for the alcohol is from 10-13 approximately.
- 
-#####sulphates:
- 
-```{r}
-#sulphates
-ggplot(data = red_wine,
-       aes(y = sulphates, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(0.3,1.5)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-
-```
-  The best ratio for the sulphates  is 0.6 to 0.9. with 10 to 13 alcohol ratio .
-  
-#####citric acid:
-
-```{r}
-#citric acid
-ggplot(data = red_wine,
-       aes(y = citric.acid, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(0,3)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-```
-0.5 clitric acid gives a highr wine quality with a 11 to 13 of alcohol.
-
-#####volatile acidity:
- 
-```{r}
-#volatile acidity
-ggplot(data = red_wine,
-       aes(y = volatile.acidity, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1599)  +
-  scale_y_continuous(limits=c(0,2)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-
-```
-  a volatile acidity 0.5 produce a high quality wines.
-  
-  
-#####residual sugar:
-
-```{r}
-#residual sugar
-ggplot(data = red_wine,
-       aes(y = residual.sugar, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(0,16)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-```
-  good quality wine has a raio of the alcohol between 11-12 and a 2.5 residual sugar.
-  
-####chlorides:
-  
-```{r}
-#chlorides
-ggplot(data = red_wine,
-       aes(y = chlorides, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(0,1)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-
-```
-A good wine contain a 0.8 chlorides and 11 to 13 alcohol ratio.
-####total sulfur dioxide:
-
-```{r}
-#total sulfur dioxide
-total_sulfur_dioxide_alco <-ggplot(data = red_wine,
-       aes(y = total.sulfur.dioxide, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(5,300)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-                     total_sulfur_dioxide_alco
-```
-a good wine has about 25 total sulfur dioxide and 11 to 13 alcohol ratio.
-
-```{r}
-#free sulfur dioxide
-free_sulfur_dioxide_alco <- ggplot(data = red_wine,
-       aes(y = free.sulfur.dioxide, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(0,75)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-                     free_sulfur_dioxide_alco
-
-```
-free sulfar dioxide from 5 to 15 and alcohol from 11 to 13 ratio is the best to produce a good wine.
-
-####density:
-
-```{r}
-#density
-ggplot(data = red_wine,
-       aes(y = density, x = alcohol,
-           color = rating)) +
-  geom_point(alpha = 0.98, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(0.98,1.01)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-```
-0.997 is the best density and 11 to 13 alcohol ratio. 
-####pH:
-
-```{r}
-ph_alco <- ggplot(data = red_wine,aes(y = pH, x = alcohol,
- color = rating)) +
-  geom_point(alpha = 0.8, size = 1) +
-  geom_smooth(method = "lm", se = FALSE,size=1)  +
-  scale_y_continuous(limits=c(2.6,4.05)) +
-  facet_wrap(~rating) +
-  scale_color_brewer(type='seq',
-                     guide=guide_legend(title='Quality'))
-ph_alco
-```
-The best pH level is about 3.25 and 11 to 13 alcohol ratio for the best wine.
-
-##Conclusion  
-  we conclude that the best ratio for the components of a good wine is :
-1 - fixed acidity (7-11)
-2 - volatile acidity (0.5)
-3 - citric acid (0.5 )
-4 - residual sugar (2.5)
-5 - chlorides (0.8)
-6 - free sulfur dioxide ( 5-15)
-7 - total sulfur dioxide (25)
-8 - density (0.997)
-9 - pH (3.25)
-10 - sulphates (0.6-0.9)
-11 - alcohol (11-13)
 
